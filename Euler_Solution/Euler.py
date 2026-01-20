@@ -1,14 +1,35 @@
 #Euler Palindrom Problem
 
-def is_palindrome(n: int) -> bool: #expects input to be an integer #type hint
-    s = str(n) #converts integer to string
-    return s == s[::-1]  # since integer is string, we can reverse it and only return the integer if it is read the same way backwards
+def is_palindrome(n: int) -> bool: 
+    '''
+    Checks whether an integer is a palindrome.
 
-def best_palindrome(min: int = 100, max: int = 999) -> tuple[int, int, int]: #sets parameters of min and max value, and sets hint type to return 3 integers
+    A palindrome is a value that reads the same forward and backward.
+    The integer n is converted into a string s so it can be reversed easily.
 
-best_palindrome = 0
-best_a = 0
-best_b = 0
+    Returns True if s equals its reverse, and False otherwise.
+    '''
+    s = str(n) 
+    return s == s[::-1]  
+
+
+def best_palindrome(low: int = 100, high: int = 999) -> tuple[int, int, int]:
+    '''
+    Finds the largest palindrome product made from multiplying two integers
+    in the range [low, high].
+
+    The function checks products a*b and keeps track of the best (largest)
+    palindrome found so far using three storage variables:
+      - best_palindrome: the largest palindrome product found
+      - best_a: the first factor that produced best_palindrome
+      - best_b: the second factor that produced best_palindrome
+
+    Returns a tuple containing (best_palindrome, best_a, best_b).
+    '''
+
+    best_palindrome = 0
+    best_a = 0
+    best_b = 0
 
     for a in range(max, min -1, -1):
         if a * a < best_palindrome: #if the same number squared is a larger palindrome than an a * b number
@@ -19,13 +40,30 @@ best_b = 0
 
             if product < best_palindrome:
              break
-             if is_palindrome(product):
-            best_palindrome = product
-            best_a = a
-            best_b = b
+         
+            if is_palindrome(product):
+                best_palindrome = product
+                best_a = a
+                best_b = b
     return best_palindrome, best_a, best_b
 
-palindrome, a, b = largest_palindrome_product()
-print(f"Largest palindrome product: {palindrome}")
-print(f"Factors: {a} x {b} = {palindrome}")
 
+def largest_palindrome_product():
+    '''
+    Runs the palindrome search and prints the final result.
+
+    This function calls best_palindrome() and stores the returned values
+    in x, y, and z:
+      - x is the largest palindrome product
+      - y and z are the two factors that multiply to give x
+
+    It then prints the palindrome and the matching factors in a readable format.
+    '''
+    
+    x, y, z = best_palindrome()
+    
+    print(f"Largest palindrome product: {x}")
+    print(f"Factors: {y} x {z} = {x}")
+    
+
+largest_palindrome_product()
