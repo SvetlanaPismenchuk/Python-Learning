@@ -31,11 +31,11 @@ def best_palindrome(low: int = 100, high: int = 999) -> tuple[int, int, int]:
     best_a = 0
     best_b = 0
 
-    for a in range(max, min -1, -1):
+    for a in range(high, low -1, -1):
         if a * a < best_palindrome: #if the same number squared is a larger palindrome than an a * b number
             break
 
-        for b in range(a, min -1, -1):
+        for b in range(a, low -1, -1):
             product = a * b
 
             if product < best_palindrome:
